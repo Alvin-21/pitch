@@ -61,10 +61,21 @@ def new_comment(pitch_id):
         comment = form.comment.data
         new_comment = Comment(text=comment, pitch_id=pitch_id, user_id=current_user.id)
         new_comment.save_comment()
-        return redirect(url_for('.view_post', pitch_id=pitch_id))
+        return redirect(url_for('.view_pitch', pitch_id=pitch_id))
 
     title = 'New Comment'
     return render_template('comments.html', title=title, form=form)
+
+@main.route('/pitch/view/<int:pitch_id>', methods=['GET', 'POST'])
+def view_pitch(pitch_id):
+    """
+    Function that returns the view page for a pitch.
+    """
+
+    pitch = Pitch.query.filter_by(id=pitch_id).first()
+    comments = Comment.get_comments(pitch_id)
+    
+    return render_template('view.html', pitch=pitch, comments=comments, id=pitch_id)
 
 @main.route('/user/<uname>')
 def profile(uname):
