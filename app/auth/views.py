@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 from ..models import User
 from .forms import RegistrationForm, LoginForm
 from .. import db
@@ -43,3 +43,10 @@ def register():
     title = "New Account"
 
     return render_template('auth/register.html', registration_form=form, title=title)
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))
