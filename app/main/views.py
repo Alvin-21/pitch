@@ -22,7 +22,7 @@ def new_pitch(category_name):
     """
     Function that returns the pitches page.
     """
-    
+
     form = PitchForm()
     category = category_name
 
@@ -35,6 +35,18 @@ def new_pitch(category_name):
 
     title = 'New Pitch'
     return render_template('pitches.html', title=title, form=form, category=category)
+
+@main.route('/category/<category_name>')
+def category(category_name):
+    """
+    Function for returning the category page.
+    """
+
+    category = category_name
+    title = f'{category}'
+    pitches = Pitch.get_pitches(category)
+    
+    return render_template('category.html', title=title, category=category, pitches=pitches)
 
 @main.route('/user/<uname>')
 def profile(uname):
