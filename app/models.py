@@ -49,6 +49,22 @@ class Pitch(db.Model):
     time = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
 
+    def save_pitch(self):
+        """
+        Method for saving the pitch to the database.
+        """
+
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_pitches(cls, category):
+        """
+        Method to get the pitches.
+        """
+
+        pitch = Pitch.query.filter_by(category=category).order_by(Pitch.time.desc()).all()
+        return pitch
 
 class Comment:
     """
@@ -60,3 +76,5 @@ class Comment:
     text = db.Column(db.Text)
     time = db.Column(db.DateTime, default=datetime.utcnow)
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
+
+    
