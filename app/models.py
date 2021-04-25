@@ -66,7 +66,7 @@ class Pitch(db.Model):
         pitch = Pitch.query.filter_by(category=category).order_by(Pitch.time.desc()).all()
         return pitch
 
-class Comment:
+class Comment(db.Model):
     """
     Class for defining comments for the pitches.
     """
@@ -75,7 +75,7 @@ class Comment:
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
     time = db.Column(db.DateTime, default=datetime.utcnow)
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
 
     def save_comment(self):
         """

@@ -45,8 +45,26 @@ def category(category_name):
     category = category_name
     title = f'{category}'
     pitches = Pitch.get_pitches(category)
-    
+
     return render_template('category.html', title=title, category=category, pitches=pitches)
+
+@main.route('/category/pitch/comments/new/<int:pitch_id>', methods=['GET', 'POST'])
+@login_required
+def new_comment(pitch_id):
+    """
+    Function that returns the comments page.
+    """
+
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        comment = form.comment.data
+        new_comment = Comment(text=comment, pitch_id=pitch_id, user_id=current_user.id)
+        new_comment.save_comment()
+        return redirect(url_for('.view_post', pitch_id=pitch_id))
+
+    title = 'New Comment'
+    return render_template('comments.html', title=title, form=form)
 
 @main.route('/user/<uname>')
 def profile(uname):
