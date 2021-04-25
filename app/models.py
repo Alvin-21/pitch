@@ -77,4 +77,19 @@ class Comment:
     time = db.Column(db.DateTime, default=datetime.utcnow)
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
 
-    
+    def save_comment(self):
+        """
+        Method for saving the comments to the database.
+        """
+
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, id):
+        """
+        Method for getting the comments.
+        """
+        
+        comments = Comment.query.filter_by(pitch_id=id).all()
+        return  comments
