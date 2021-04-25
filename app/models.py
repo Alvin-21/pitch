@@ -35,6 +35,21 @@ class User(UserMixin, db.Model):
         return f'User {self.username}'
 
 
+class Pitch(db.Model):
+    """
+    Class for defining pitches.
+    """
+
+    __tablename__ = 'pitches'
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    category = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, index = True)
+    likes = db.Column(db.Integer, default=int(0))
+    dislikes = db.Column(db.Integer, default=int(0))
+    comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
+
+
 class Comment:
     """
     """
