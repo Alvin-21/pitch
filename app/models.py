@@ -2,6 +2,7 @@ from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -43,13 +44,19 @@ class Pitch(db.Model):
     __tablename__ = 'pitches'
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    category = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(255))
     description = db.Column(db.Text, index = True)
-    likes = db.Column(db.Integer, default=int(0))
-    dislikes = db.Column(db.Integer, default=int(0))
+    time = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
 
 
 class Comment:
     """
+    Class for defining comments for the pitches.
     """
+
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
