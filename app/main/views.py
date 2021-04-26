@@ -42,10 +42,12 @@ def category(category_name):
     """
 
     category = category_name
+    likes = Like.get_all_likes(pitch_id=Pitch.id)
+    dislikes = Dislike.get_all_dislikes(pitch_id=Pitch.id)
     title = f'{category}'
     pitches = Pitch.get_pitches(category)
 
-    return render_template('category.html', title=title, category=category, pitches=pitches)
+    return render_template('category.html', title=title, category=category, pitches=pitches, likes=likes, dislikes=dislikes)
 
 @main.route('/category/pitch/comments/<int:pitch_id>', methods=['GET', 'POST'])
 @login_required
@@ -86,7 +88,7 @@ def like(pitch_id):
 
 @main.route('/pitch/<int:pitch_id>/dislike', methods=['GET', 'POST'])
 @login_required
-def disike(pitch_id):
+def dislike(pitch_id):
     """
     Function that returns dislikes.
     """
@@ -110,8 +112,10 @@ def view_pitch(pitch_id):
 
     pitch = Pitch.query.filter_by(id=pitch_id).first()
     comments = Comment.get_comments(pitch_id)
+    likes = Like.get_all_likes(pitch_id=pitch_id)
+    dislikes = Dislike.get_all_dislikes(pitch_id=pitch_id)
     
-    return render_template('view.html', pitch=pitch, comments=comments, id=pitch_id)
+    return render_template('view.html', pitch=pitch, comments=comments, id=pitch_id, likes=likes, dislikes=dislikes)
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -120,11 +124,17 @@ def profile(uname):
     """
 
     user = User.query.filter_by(username=uname).first()
+    pitches = Pitch.query.filter_by(author=User.id).all()
+    comments = Comment.query.filter_by(user_id=User.id).all()
+    likes = Like.query.filter_by(user_id=User.id).all()
+    dislikes = Dislike.query.filter_by(user_id=User.id).all()
+    
+    title = f"{uname.capitalize()}"
 
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user=user)
+    return render_template("profile/profile.html", user=user, title=title, pitches=pitches, comments=comments, likes=likes, dislikes=dislikes)
 
 
 @main.route('/user/<uname>/update', methods=['GET', 'POST'])
