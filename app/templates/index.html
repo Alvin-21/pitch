@@ -9,18 +9,18 @@
     <p>Please choose one of the following categories to view their pitches:</p>
     <div class="row">
         <div class="col-md-6">
-            <a href=""><h4 class="text-center">Pickup Lines</h4></a>
+            <a href="{{url_for('main.category',category_name='pickup lines')}}"><h4 class="text-center">Pickup Lines</h4></a>
         </div>
         <div class="col-md-6">
-            <a href=""><h4 class="text-center">Interview Pitch</h4></a>
+            <a href="{{url_for('main.category',category_name='interview pitch')}}"><h4 class="text-center">Interview Pitch</h4></a>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a href=""><h4 class="text-center">Product Pitch</h4></a>
+            <a href="{{url_for('main.category',category_name='product pitch')}}"><h4 class="text-center">Product Pitch</h4></a>
         </div>
         <div class="col-md-6">
-            <a href=""><h4 class="text-center">Promotion Pitch</h4></a>
+            <a href="{{url_for('main.category',category_name='promotion pitch')}}"><h4 class="text-center">Promotion Pitch</h4></a>
         </div>
     </div>
 </section>
