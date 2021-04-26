@@ -94,16 +94,17 @@ class Comment(db.Model):
         comments = Comment.query.filter_by(pitch_id=id).all()
         return  comments
 
+
 class Like(db.Model):
     """
     Class for liking pitches.
     """
 
     __tablename__ = 'likes'
-    id = db.Column(db.Integer,primary_key=True)
-    like = db.Column(db.Integer,default=1)
-    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    like = db.Column(db.Integer, default=1)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def save_like(self):
         """
@@ -113,12 +114,40 @@ class Like(db.Model):
         db.session.add(self)
         db.session.commit()
 
-
     @classmethod
-    def get_all_likes(cls,pitch_id):
+    def get_all_likes(cls, pitch_id):
         """
         Function for getting pitch likes.
         """
-        
+
         likes = Like.query.order_by('id').all()
         return likes
+
+
+class Dislike(db.Model):
+    """
+    Class for disliking pitches.
+    """
+
+    __tablename__ = 'dislikes'
+    id = db.Column(db.Integer, primary_key=True)
+    dislike = db.Column(db.Integer, default=1)
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def save_dislike(self):
+        """
+        Function for saving dislikes to database.
+        """
+
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_all_dislikes(cls, pitch_id):
+        """
+        Function for getting pitch dislikes.
+        """
+
+        dislike = Dislike.query.order_by('id').all()
+        return dislike
