@@ -1,1 +1,28 @@
 {% extends 'base.html' %}
+
+{% block content %}
+
+<section class="container">
+    <h1 class="text-center">WELCOME TO ONE MINUTE PITCHES</h1>
+    <p>This is a web application that gives you the opportunity to submit a pitch in one minute in the below categories.</p>
+    <p>To post a pitch, please <a href="{{url_for('auth.login')}}" target="_blank">LOGIN</a>. If you have already logged in, click <a href="/pitches/new" target="_blank">here</a>.</p>
+    <p>Please choose one of the following categories to view their pitches:</p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href=""><h4 class="text-center">Pickup Lines</h4></a>
+        </div>
+        <div class="col-md-6">
+            <a href=""><h4 class="text-center">Interview Pitch</h4></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a href=""><h4 class="text-center">Product Pitch</h4></a>
+        </div>
+        <div class="col-md-6">
+            <a href=""><h4 class="text-center">Promotion Pitch</h4></a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
