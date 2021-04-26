@@ -1,6 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from . import login_manager
 from datetime import datetime
 
@@ -93,3 +93,32 @@ class Comment(db.Model):
         
         comments = Comment.query.filter_by(pitch_id=id).all()
         return  comments
+
+class Like(db.Model):
+    """
+    Class for liking pitches.
+    """
+
+    __tablename__ = 'likes'
+    id = db.Column(db.Integer,primary_key=True)
+    like = db.Column(db.Integer,default=1)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_like(self):
+        """
+        Function for saving like to database.
+        """
+
+        db.session.add(self)
+        db.session.commit()
+
+
+    @classmethod
+    def get_all_likes(cls,pitch_id):
+        """
+        Function for getting pitch likes.
+        """
+        
+        likes = Like.query.order_by('id').all()
+        return likes
