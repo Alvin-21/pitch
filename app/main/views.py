@@ -73,7 +73,7 @@ def like(pitch_id):
     """
     Function that returns likes.
     """
-    
+
     pitch = Pitch.query.get(pitch_id)
     pitch_likes = Like.query.filter_by(pitch_id=pitch_id)
 
@@ -82,6 +82,24 @@ def like(pitch_id):
 
     new_like = Like(pitch_id=pitch_id, user=current_user)
     new_like.save_like()
+
+    return redirect(url_for('main.index'))
+
+@main.route('/pitch/<int:pitch_id>/dislike', methods=['GET', 'POST'])
+@login_required
+def disike(pitch_id):
+    """
+    Function that returns dislikes.
+    """
+    
+    pitch = Pitch.query.get(pitch_id)
+    pitch_dislikes = Dislike.query.filter_by(pitch_id=pitch_id)
+
+    if Dislike.query.filter(Dislike.user_id == current_user.id, Dislike.pitch_id == pitch_id).first():
+        return redirect(url_for('main.index'))
+
+    new_dislike = Dislike(pitch_id=pitch_id, user=current_user)
+    new_dislike.save_dislike()
 
     return redirect(url_for('main.index'))
 
