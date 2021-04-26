@@ -22,14 +22,14 @@ class PitchTest(unittest.TestCase):
 
         self.new_user = User(username="john", email="john@gmail.com", pass_secure="trial1")
 
-        self.new_pitch = Pitch(category="pickup lines", description="asdfghjkl")
+        self.new_pitch = Pitch(category="business pitch", description="asdfghjkl")
 
     def test_check_instance_variables(self):
         """
         Test case to check if the values of variables are correctly being placed.
         """
 
-        self.assertEquals(self.new_pitch.category, "pickup lines")
+        self.assertEquals(self.new_pitch.category, "business pitch")
         self.assertEquals(self.new_pitch.description, "asdfghjkl")
         self.assertEquals(self.new_pitch.user_id, self.new_user.id)
 
@@ -47,7 +47,7 @@ class PitchTest(unittest.TestCase):
         """
 
         self.new_pitch.save_pitch()
-        got_pitch = Pitch.get_pitches("pickup lines")
+        got_pitch = Pitch.get_pitches("business pitch")
         self.assertTrue(len(got_pitch) == 1)
 
     

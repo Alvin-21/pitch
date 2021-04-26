@@ -22,7 +22,7 @@ class CommentTest(unittest.TestCase):
         """
 
         self.new_user = User(username="john", email="john@gmail.com", pass_secure="trial1")
-        self.new_pitch = Pitch(category="pickup lines", description="asdfghjkl")
+        self.new_pitch = Pitch(category="business pitch", description="asdfghjkl")
         self.new_comment = Comment(text="good pitch")
 
     def test_check_instance_variables(self):

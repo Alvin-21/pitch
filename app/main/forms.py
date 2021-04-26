@@ -16,7 +16,7 @@ class PitchForm(FlaskForm):
     Class for providing the pitch.
     """
 
-    category = RadioField('Label', choices=[('pickup lines', 'pickup lines'), ('interview pitch','interview pitch'), ('product pitch', 'product pitch'), ('promotion pitch', 'promotion pitch')])
+    category = RadioField('Label', choices=[('business pitch', 'business pitch'), ('interview pitch','interview pitch'), ('product pitch', 'product pitch'), ('promotion pitch', 'promotion pitch')])
     pitch = TextAreaField("Please provide your pitch.", validators=[Required()])
     submit = SubmitField('Submit')
 
