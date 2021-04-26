@@ -16,25 +16,24 @@ def index():
 
     return render_template('index.html', title=title)
 
-@main.route('/category/pitch/new/<category_name>', methods=['GET', 'POST'])
+@main.route('/pitches/new', methods = ['GET','POST'])
 @login_required
-def new_pitch(category_name):
+def new_pitch():
     """
     Function that returns the pitches page.
     """
 
     form = PitchForm()
-    category = category_name
 
     if form.validate_on_submit():
-        pitch_category = form.category.data
+        category = form.category.data
         pitch = form.pitch.data
-        new_pitch = Pitch(category=pitch_category, pitch=pitch, user=current_user)
+        new_pitch = Pitch(category=category, pitch=pitch, user=current_user)
         new_pitch.save_pitch()
         return redirect(url_for('.category', category_name=category))
 
     title = 'New Pitch'
-    return render_template('pitches.html', title=title, form=form, category=category)
+    return render_template('pitches.html', title=title, form=form)
 
 @main.route('/category/<category_name>')
 def category(category_name):

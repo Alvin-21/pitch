@@ -7,13 +7,14 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             {% if current_user.is_authenticated %}
-            <a class="nav-item nav-link active text-white" href="#">Home <span class="sr-only">(current)</span></a>
-            <a style="color:white;padding:15px;">{{current_user.username}}</a>
-            <a href="{{url_for('auth.logout')}}">Sign out</a>
+            <a class="nav-item nav-link active text-white" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link text-white" href="{{url_for('main.profile',uname=current_user.username)}}">{{current_user.username}}</a>
+            <a class="nav-item nav-link text-white" href="/pitches/new">Pitch</a>
+            <a href="{{url_for('auth.logout')}}">Log out</a>
             {% else %}
-            <a class="nav-item nav-link active text-white" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link text-white" href="#">Login</a>
-            <a class="nav-item nav-link text-white" href="#">Sign Up</a>
+            <a class="nav-item nav-link active text-white" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link text-white" href="{{url_for('auth.login')}}">Login</a>
+            <a class="nav-item nav-link text-white" href="{{url_for('auth.register')}}">Sign Up</a>
             {%endif%}
         </div>
     </div>
