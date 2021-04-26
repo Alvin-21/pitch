@@ -79,12 +79,12 @@ def like(pitch_id):
     pitch_likes = Like.query.filter_by(pitch_id=pitch_id)
 
     if Like.query.filter(Like.user_id == current_user.id, Like.pitch_id == pitch_id).first():
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.category'))
 
     new_like = Like(pitch_id=pitch_id, user=current_user)
     new_like.save_like()
 
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.category'))
 
 @main.route('/pitch/<int:pitch_id>/dislike', methods=['GET', 'POST'])
 @login_required
@@ -97,12 +97,12 @@ def dislike(pitch_id):
     pitch_dislikes = Dislike.query.filter_by(pitch_id=pitch_id)
 
     if Dislike.query.filter(Dislike.user_id == current_user.id, Dislike.pitch_id == pitch_id).first():
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.category'))
 
     new_dislike = Dislike(pitch_id=pitch_id, user=current_user)
     new_dislike.save_dislike()
 
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.category'))
 
 @main.route('/pitch/view/<int:pitch_id>', methods=['GET', 'POST'])
 def view_pitch(pitch_id):

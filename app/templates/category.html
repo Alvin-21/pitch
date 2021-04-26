@@ -16,6 +16,8 @@
             <p class='card-text'>{{pitch.description}}</p>
         </div>
         <div class="card-footer">
+            <a href="{{url_for('main.like',pitch_id=pitch.id)}}" class= "btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up"></span>Like <span>{{pitch.likes.count()}}</span></a>
+            <a href="{{url_for('main.dislike',pitch_id=pitch.id)}}" class= "btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-down"></span>Dislike <span>{{pitch.dislikes.count()}}</span></a>
             <a class="btn btn-dark text-center" href="{{url_for('main.view_pitch', pitch_id=pitch.id)}}">View Comments</a>
         </div>
     </div>
