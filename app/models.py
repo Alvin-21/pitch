@@ -20,6 +20,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True, index=True)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    likes = db.relationship('Like',backref = 'user',lazy = "dynamic")
+    dislikes = db.relationship('Dislike',backref = 'user',lazy = "dynamic")
 
     @property
     def password(self):
@@ -48,6 +50,8 @@ class Pitch(db.Model):
     description = db.Column(db.Text, index = True)
     time = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment',backref='pitch',lazy='dynamic')
+    likes = db.relationship('Like',backref = 'pitch',lazy = "dynamic")
+    dislikes = db.relationship('Dislike',backref = 'pitch',lazy = "dynamic")
 
     def save_pitch(self):
         """
