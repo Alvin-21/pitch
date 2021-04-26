@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="container">
+    <div class="card text-white bg-info">
+        {% if pitch.user.profile_pic_path %}
+        <img src="{{url_for('static/photos',filename = pitch.user.profile_pic_path)}}" alt="Profile Picture" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">{{pitch.user.username}}</h5>
+            <p class='card-text'>{{pitch.description}}</p>
+            <p class="card-text"><small class="text-muted">{{pitch.time}}</small></p>
+        </div>
+    </div>
+    <a class="btn btn-dark text-center" href="{{url_for('main.new_comment', pitch_id=pitch.id)}}">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Comment
+    </a>
+    {% for comment in comments %}
+    <div class="card text-white bg-info">
+        {% if comment.user.profile_pic_path %}
+        <img src="{{url_for('static/photos',filename = comment.user.profile_pic_path)}}" alt="Profile Picture" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">{{comment.user.username}}</h5>
+            <p class="card-text">{{comment.text}}</p>
+            <p class="card-text"><small class="text-muted">{{comment.time}}</small></p>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+{% endblock %}
