@@ -12,7 +12,7 @@ def index():
     Function that returns the index page and its data.
     '''
 
-    title = 'Home'
+    title = 'Pitch'
 
     return render_template('index.html', title=title)
 
