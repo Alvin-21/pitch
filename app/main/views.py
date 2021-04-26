@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import main
 from flask_login import login_required, current_user
-from ..models import User, Pitch, Comment
+from ..models import User, Pitch, Comment, Like, Dislike
 from .forms import UpdateProfile, PitchForm, CommentForm
 from .. import db, photos
 
@@ -65,6 +65,25 @@ def new_comment(pitch_id):
 
     title = 'New Comment'
     return render_template('comments.html', title=title, form=form)
+
+
+@main.route('/pitch/<int:pitch_id>/like', methods=['GET', 'POST'])
+@login_required
+def like(pitch_id):
+    """
+    Function that returns likes.
+    """
+    
+    pitch = Pitch.query.get(pitch_id)
+    pitch_likes = Like.query.filter_by(pitch_id=pitch_id)
+
+    if Like.query.filter(Like.user_id == current_user.id, Like.pitch_id == pitch_id).first():
+        return redirect(url_for('main.index'))
+
+    new_like = Like(pitch_id=pitch_id, user=current_user)
+    new_like.save_like()
+
+    return redirect(url_for('main.index'))
 
 @main.route('/pitch/view/<int:pitch_id>', methods=['GET', 'POST'])
 def view_pitch(pitch_id):
