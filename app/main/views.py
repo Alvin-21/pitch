@@ -47,7 +47,7 @@ def category(category_name):
 
     return render_template('category.html', title=title, category=category, pitches=pitches)
 
-@main.route('/category/pitch/comments/new/<int:pitch_id>', methods=['GET', 'POST'])
+@main.route('/category/pitch/comments/<int:pitch_id>', methods=['GET', 'POST'])
 @login_required
 def new_comment(pitch_id):
     """
@@ -62,7 +62,7 @@ def new_comment(pitch_id):
         new_comment.save_comment()
         return redirect(url_for('.view_pitch', pitch_id=pitch_id))
 
-    title = 'New Comment'
+    title = 'Comments'
     return render_template('comments.html', title=title, form=form)
 
 

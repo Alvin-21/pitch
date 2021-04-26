@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="container">
+    <h2>Welcome to {{category}}</h2>
+    <a class="btn btn-info text-center" href="/pitches/new">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Post a Pitch
+    </a>
+    <hr>
+    <h3>Pitches</h3>
+    {% for pitch in pitches %}
+    <div class="card text-white bg-info mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{pitch.user.username}}</h5>
+            <p class='card-text'>{{pitch.description}}</p>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-dark text-center" href="{{url_for('main.view_pitch', pitch_id=pitch.id)}}">View Comments</a>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+{% endblock %}
