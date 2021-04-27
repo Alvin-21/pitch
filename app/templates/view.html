@@ -4,31 +4,33 @@
 
 <section class="container">
     <div class="card text-white bg-info">
-        {% if pitch.user.profile_pic_path %}
-        <img src="{{url_for('static/photos',filename = pitch.user.profile_pic_path)}}" alt="Profile Picture" class="card-img-top">
+        {% if pitch.profile_pic_path %}
+        <img src="{{url_for('static',filename = pitch.user.profile_pic_path)}}" alt="Profile Picture" class="card-img-top text-center" style="height: 200px; width: 200px;">
         {% else %}
-        <img src="{{url_for('static/photos',filename = 'default_pic.webp')}}" alt="Default profile picture" class="icard-img-top">
+        <img src="{{url_for('static',filename = 'photos/default_pic.webp')}}" alt="Default profile picture" class="icard-img-top text-center" style="height: 200px; width: 200px;">
         {% endif %}
         <div class="card-body">
-            <h5 class="card-title">{{pitch.user.username}}</h5>
+            <h5 class="card-title">{{pitch.pitch_username}}</h5>
             <p class='card-text'>{{pitch.description}}</p>
-            <p class="card-text"><small class="text-muted">Posted on {{pitch.time.strftime('%d/%m/%Y%X')}}</small></p>
+            <p class="card-text"><small class="text-muted">Posted on {{pitch.time.strftime('%d/%m/%Y %X')}}</small></p>
         </div>
     </div>
-    <a class="btn btn-dark text-center" href="{{url_for('main.new_comment', id=pitch.id)}}">
+    <p>To comment on this post click on the comment button below:</p>
+    <a class="btn btn-dark text-center" href="{{url_for('main.new_comment', pitch_id=pitch.id)}}" target="_blank">
         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Comment
     </a>
+    <h4>Comments</h4>
     {% for comment in comments %}
     <div class="card text-white bg-info">
-        {% if comment.user.profile_pic_path %}
-        <img src="{{url_for('static/photos',filename = comment.user.profile_pic_path)}}" alt="Profile Picture" class="card-img-top">
+        {% if comment.profile_pic_path %}
+        <img src="{{url_for('static',filename = comment.user.profile_pic_path)}}" alt="Profile Picture" class="card-img-top" style="height: 200px; width: 200px;">
         {% else %}
-        <img src="{{url_for('static/photos',filename = 'default_pic.webp')}}" alt="Default profile picture" class="card-img-top">
+        <img src="{{url_for('static',filename = 'photos/default_pic.webp')}}" alt="Default profile picture" class="card-img-top" style="height: 200px; width: 200px;">
         {% endif %}
         <div class="card-body">
-            <h5 class="card-title">{{comment.user.username}}</h5>
+            <h5 class="card-title">{{comment.comment_username}}</h5>
             <p class="card-text">{{comment.text}}</p>
-            <p class="card-text"><small class="text-muted">Posted on {{comment.time.strftime('%d/%m/%Y%X')}}</small></p>
+            <p class="card-text"><small class="text-muted">Posted on {{comment.time.strftime('%d/%m/%Y %X')}}</small></p>
         </div>
     </div>
     {% endfor %}

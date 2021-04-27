@@ -116,7 +116,8 @@ def view_pitch(pitch_id):
     likes = Like.get_all_likes(pitch_id=pitch_id)
     dislikes = Dislike.get_all_dislikes(pitch_id=pitch_id)
     
-    return render_template('view.html', pitch=pitch, comments=comments, id=pitch_id, likes=likes, dislikes=dislikes)
+    title = "View Page"
+    return render_template('view.html', title=title, pitch=pitch, comments=comments, id=pitch_id, likes=likes, dislikes=dislikes)
 
 @main.route('/user/<uname>')
 def profile(uname):
