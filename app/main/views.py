@@ -126,8 +126,8 @@ def profile(uname):
     """
 
     user = User.query.filter_by(username=uname).first()
-    pitches = Pitch.query.filter_by(author=User.id).all()
-    comments = Comment.query.filter_by(user_id=User.id).all()
+    pitches = Pitch.query.filter_by(user_id=User.id).all()
+    comments = Comment.query.filter_by(comment_username=User.username).all()
     likes = Like.query.filter_by(user_id=User.id).all()
     dislikes = Dislike.query.filter_by(user_id=User.id).all()
     
