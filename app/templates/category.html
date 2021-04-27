@@ -14,7 +14,7 @@
         <div class="card-body">
             <h5 class="card-title">{{pitch.user.username}}</h5>
             <p class='card-text'>{{pitch.description}}</p>
-            <p class="card-text"><small class="text-muted">{{pitch.time.strftime('%d/%m/%Y%X')}}</small></p>
+            <p class="card-text"><small class="text-muted">Posted on {{pitch.time.strftime('%d/%m/%Y%X')}}</small></p>
         </div>
         <div class="card-footer">
             <a href="{{url_for('main.like',pitch_id=pitch.id)}}" class= "btn btn-success btn-sm"><span class="glyphicon glyphicon-thumbs-up"></span>Like <span>{{pitch.likes.count()}}</span></a>
