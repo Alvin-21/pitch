@@ -29,7 +29,7 @@ def new_pitch():
         username = form.username.data
         category = form.category.data
         pitch = form.pitch.data
-        new_pitch = Pitch(category=category, pitch=pitch, username=username, user=current_user)
+        new_pitch = Pitch(category=category, description=pitch, pitch_username=username)
         new_pitch.save_pitch()
         return redirect(url_for('.category', category_name=category))
 
@@ -61,7 +61,7 @@ def new_comment(pitch_id):
 
     if form.validate_on_submit():
         comment = form.comment.data
-        new_comment = Comment(text=comment, pitch_id=pitch_id, user_id=current_user.id)
+        new_comment = Comment(text=comment, pitch_id=pitch_id, comment_username=current_user.username)
         new_comment.save_comment()
         return redirect(url_for('.view_pitch', pitch_id=pitch_id))
 
@@ -80,12 +80,12 @@ def like(pitch_id):
     pitch_likes = Like.query.filter_by(pitch_id=pitch_id)
 
     if Like.query.filter(Like.user_id == current_user.id, Like.pitch_id == pitch_id).first():
-        return redirect(url_for('main.category'))
+        return redirect(url_for('main.index'))
 
     new_like = Like(pitch_id=pitch_id, user=current_user)
     new_like.save_like()
 
-    return redirect(url_for('main.category'))
+    return redirect(url_for('main.index'))
 
 @main.route('/pitch/<int:pitch_id>/dislike', methods=['GET', 'POST'])
 @login_required
@@ -98,12 +98,12 @@ def dislike(pitch_id):
     pitch_dislikes = Dislike.query.filter_by(pitch_id=pitch_id)
 
     if Dislike.query.filter(Dislike.user_id == current_user.id, Dislike.pitch_id == pitch_id).first():
-        return redirect(url_for('main.category'))
+        return redirect(url_for('main.index'))
 
     new_dislike = Dislike(pitch_id=pitch_id, user=current_user)
     new_dislike.save_dislike()
 
-    return redirect(url_for('main.category'))
+    return redirect(url_for('main.index'))
 
 @main.route('/pitch/view/<int:pitch_id>', methods=['GET', 'POST'])
 def view_pitch(pitch_id):
