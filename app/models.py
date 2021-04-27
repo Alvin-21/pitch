@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
 
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), index=True)
+    username = db.Column(db.String(255), unique=True, index=True)
     pass_secure = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True, index=True)
     bio = db.Column(db.String(255))
@@ -46,6 +46,7 @@ class Pitch(db.Model):
     __tablename__ = 'pitches'
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    pitch_username = db.Column(db.String(255), db.ForeignKey("users.username"))
     category = db.Column(db.String(255))
     description = db.Column(db.Text, index = True)
     time = db.Column(db.DateTime, default=datetime.utcnow)
@@ -77,6 +78,7 @@ class Comment(db.Model):
 
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
+    comment_username = db.Column(db.String(255), db.ForeignKey("users.username"))
     text = db.Column(db.Text)
     time = db.Column(db.DateTime, default=datetime.utcnow)
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
