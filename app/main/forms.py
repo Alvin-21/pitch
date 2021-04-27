@@ -16,6 +16,7 @@ class PitchForm(FlaskForm):
     Class for providing the pitch.
     """
 
+    username = StringField("Please enter your username.", validators=[Required()])
     category = RadioField('Label', choices=[('business pitch', 'business pitch'), ('interview pitch','interview pitch'), ('product pitch', 'product pitch'), ('promotion pitch', 'promotion pitch')])
     pitch = TextAreaField("Please provide your pitch.", validators=[Required()])
     submit = SubmitField('Submit')
@@ -25,5 +26,6 @@ class CommentForm(FlaskForm):
     Class for providing the comment for a pitch.
     """
 
+    username = StringField("Please enter your username.", validators=[Required()])
     comment = TextAreaField('Type your comment',validators=[Required()])
     submit = SubmitField('Submit')

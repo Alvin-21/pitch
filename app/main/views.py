@@ -26,9 +26,10 @@ def new_pitch():
     form = PitchForm()
 
     if form.validate_on_submit():
+        username = form.username.data
         category = form.category.data
         pitch = form.pitch.data
-        new_pitch = Pitch(category=category, pitch=pitch, user=current_user)
+        new_pitch = Pitch(category=category, pitch=pitch, username=username, user=current_user)
         new_pitch.save_pitch()
         return redirect(url_for('.category', category_name=category))
 
